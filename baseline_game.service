@@ -1,0 +1,15 @@
+[Unit]
+Description=Baseline Game Gunicorn Daemon
+After=network.target
+
+[Service]
+User=sveder
+Group=sveder
+WorkingDirectory=/home/sveder/baseline_game/src/baseline_game
+Environment="PATH=/home/sveder/baseline_game/venv/bin"
+ExecStart=/home/sveder/baseline_game/venv/bin/gunicorn \
+    --config /home/sveder/baseline_game/gunicorn.conf.py \
+    baseline_game.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

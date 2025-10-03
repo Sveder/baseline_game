@@ -163,10 +163,14 @@ function showFeedback(question, isCorrect, selectedAnswer, correctAnswer) {
     const feedbackTitle = document.getElementById('feedback-title');
     const feedbackText = document.getElementById('feedback-text');
 
+    // Create MDN search link
+    const mdnSearchUrl = `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(question.name)}`;
+    const mdnLink = `<br><small><a href="${mdnSearchUrl}" target="_blank" rel="noopener noreferrer">Learn more on MDN →</a></small>`;
+
     if (isCorrect) {
         feedback.className = 'feedback show correct';
         feedbackTitle.textContent = '✅ Correct!';
-        feedbackText.innerHTML = `You correctly identified that <strong>${escapeHtml(question.name)}</strong> has <strong>${escapeHtml(getStatusLabel(correctAnswer))}</strong> status.`;
+        feedbackText.innerHTML = `You correctly identified that <strong>${escapeHtml(question.name)}</strong> has <strong>${escapeHtml(getStatusLabel(correctAnswer))}</strong> status.${mdnLink}`;
     } else {
         feedback.className = 'feedback show incorrect';
         feedbackTitle.textContent = '❌ Incorrect';
@@ -176,6 +180,8 @@ function showFeedback(question, isCorrect, selectedAnswer, correctAnswer) {
         if (question.supportInfo) {
             feedbackText.innerHTML += `<br><small><strong>Browser support:</strong> ${escapeHtml(question.supportInfo)}</small>`;
         }
+
+        feedbackText.innerHTML += mdnLink;
     }
 }
 
@@ -211,10 +217,40 @@ function showResults() {
     document.getElementById('final-score').textContent = `${score}/${gameQuestions.length}`;
     document.getElementById('accuracy').textContent = `${accuracy}%`;
 
-    // Show category-specific results
-    document.getElementById('high-correct').textContent = `${stats.high.correct}/${stats.high.total}`;
-    document.getElementById('low-correct').textContent = `${stats.low.correct}/${stats.low.total}`;
-    document.getElementById('unknown-correct').textContent = `${stats.unknown.correct}/${stats.unknown.total}`;
+    // Generate answers summary
+    const summaryDiv = document.getElementById('answers-summary');
+    let summaryHTML = '<h3 style="color: #16a34a; margin-bottom: 20px;">Your Answers:</h3>';
+
+    answers.forEach((answer, index) => {
+        const icon = answer.isCorrect ? '✅' : '❌';
+        const statusClass = answer.isCorrect ? 'correct' : 'incorrect';
+        const mdnSearchUrl = `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(answer.question.name)}`;
+
+        summaryHTML += `
+            <div style="background: ${answer.isCorrect ? '#f0fff4' : '#fdf2f2'};
+                        border: 2px solid ${answer.isCorrect ? '#38a169' : '#e53e3e'};
+                        border-radius: 10px;
+                        padding: 15px;
+                        margin-bottom: 15px;">
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <div style="flex: 1;">
+                        <strong>${icon} Question ${index + 1}: ${escapeHtml(answer.question.name)}</strong>
+                        <p style="margin: 8px 0; color: #666; font-size: 0.9em;">${escapeHtml(answer.question.description)}</p>
+                        <p style="margin: 8px 0; font-size: 0.9em;">
+                            <strong>Correct answer:</strong> ${escapeHtml(getStatusLabel(answer.correct))}
+                            ${!answer.isCorrect ? `<br><strong>Your answer:</strong> ${escapeHtml(getStatusLabel(answer.selected))}` : ''}
+                        </p>
+                    </div>
+                </div>
+                <a href="${mdnSearchUrl}" target="_blank" rel="noopener noreferrer"
+                   style="display: inline-block; margin-top: 10px; color: #16a34a; text-decoration: none; font-size: 0.9em;">
+                    📚 Learn more on MDN →
+                </a>
+            </div>
+        `;
+    });
+
+    summaryDiv.innerHTML = summaryHTML;
 }
 
 // Reset game
@@ -428,10 +464,14 @@ function showMixedFeedback(question, isCorrect, selectedAnswer, correctAnswer) {
     const feedbackText = document.getElementById('mixed-feedback-text');
 
     if (question.type === 'baseline') {
+        // Create MDN search link
+        const mdnSearchUrl = `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(question.feature.name)}`;
+        const mdnLink = `<br><small><a href="${mdnSearchUrl}" target="_blank" rel="noopener noreferrer">Learn more on MDN →</a></small>`;
+
         if (isCorrect) {
             feedback.className = 'feedback show correct';
             feedbackTitle.textContent = '✅ Correct!';
-            feedbackText.innerHTML = `You correctly identified that <strong>${escapeHtml(question.feature.name)}</strong> has <strong>${escapeHtml(getStatusLabel(correctAnswer))}</strong> status.`;
+            feedbackText.innerHTML = `You correctly identified that <strong>${escapeHtml(question.feature.name)}</strong> has <strong>${escapeHtml(getStatusLabel(correctAnswer))}</strong> status.${mdnLink}`;
         } else {
             feedback.className = 'feedback show incorrect';
             feedbackTitle.textContent = '❌ Incorrect';
@@ -440,6 +480,8 @@ function showMixedFeedback(question, isCorrect, selectedAnswer, correctAnswer) {
             if (question.feature.supportInfo) {
                 feedbackText.innerHTML += `<br><small><strong>Browser support:</strong> ${escapeHtml(question.feature.supportInfo)}</small>`;
             }
+
+            feedbackText.innerHTML += mdnLink;
         }
     } else if (question.type === 'comparison') {
         const correctFeature = correctAnswer === 'a' ? question.featureA : question.featureB;
@@ -448,14 +490,19 @@ function showMixedFeedback(question, isCorrect, selectedAnswer, correctAnswer) {
         const correctVersion = getChromeVersion(correctFeature);
         const incorrectVersion = getChromeVersion(incorrectFeature);
 
+        // Create MDN search links for both features
+        const mdnSearchUrlA = `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(question.featureA.name)}`;
+        const mdnSearchUrlB = `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(question.featureB.name)}`;
+        const mdnLinks = `<br><small>Learn more: <a href="${mdnSearchUrlA}" target="_blank" rel="noopener noreferrer">${escapeHtml(question.featureA.name)} →</a> | <a href="${mdnSearchUrlB}" target="_blank" rel="noopener noreferrer">${escapeHtml(question.featureB.name)} →</a></small>`;
+
         if (isCorrect) {
             feedback.className = 'feedback show correct';
             feedbackTitle.textContent = '✅ Correct!';
-            feedbackText.innerHTML = `<strong>${escapeHtml(correctFeature.name)}</strong> is indeed newer! It was supported from Chrome ${correctVersion}, while <strong>${escapeHtml(incorrectFeature.name)}</strong> was supported from Chrome ${incorrectVersion}.`;
+            feedbackText.innerHTML = `<strong>${escapeHtml(correctFeature.name)}</strong> is indeed newer! It was supported from Chrome ${correctVersion}, while <strong>${escapeHtml(incorrectFeature.name)}</strong> was supported from Chrome ${incorrectVersion}.${mdnLinks}`;
         } else {
             feedback.className = 'feedback show incorrect';
             feedbackTitle.textContent = '❌ Incorrect';
-            feedbackText.innerHTML = `<strong>${escapeHtml(correctFeature.name)}</strong> is actually newer! It was supported from Chrome ${correctVersion}, while <strong>${escapeHtml(incorrectFeature.name)}</strong> was supported from Chrome ${incorrectVersion}.`;
+            feedbackText.innerHTML = `<strong>${escapeHtml(correctFeature.name)}</strong> is actually newer! It was supported from Chrome ${correctVersion}, while <strong>${escapeHtml(incorrectFeature.name)}</strong> was supported from Chrome ${incorrectVersion}.${mdnLinks}`;
         }
     }
 }
@@ -481,10 +528,85 @@ function showMixedResults() {
     document.getElementById('final-score').textContent = `${score}/${gameQuestions.length}`;
     document.getElementById('accuracy').textContent = `${accuracy}%`;
 
-    // Show category-specific results for baseline questions
-    document.getElementById('high-correct').textContent = `${stats.high.correct}/${stats.high.total}`;
-    document.getElementById('low-correct').textContent = `${stats.low.correct}/${stats.low.total}`;
-    document.getElementById('unknown-correct').textContent = `${stats.unknown.correct}/${stats.unknown.total}`;
+    // Generate answers summary
+    const summaryDiv = document.getElementById('answers-summary');
+    let summaryHTML = '<h3 style="color: #16a34a; margin-bottom: 20px;">Your Answers:</h3>';
+
+    answers.forEach((answer, index) => {
+        const icon = answer.isCorrect ? '✅' : '❌';
+        const question = answer.question;
+
+        if (question.type === 'baseline') {
+            const mdnSearchUrl = `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(question.feature.name)}`;
+
+            summaryHTML += `
+                <div style="background: ${answer.isCorrect ? '#f0fff4' : '#fdf2f2'};
+                            border: 2px solid ${answer.isCorrect ? '#38a169' : '#e53e3e'};
+                            border-radius: 10px;
+                            padding: 15px;
+                            margin-bottom: 15px;">
+                    <div>
+                        <strong>${icon} Question ${index + 1}: ${escapeHtml(question.feature.name)}</strong>
+                        <p style="margin: 8px 0; color: #666; font-size: 0.9em;">${escapeHtml(question.feature.description)}</p>
+                        <p style="margin: 8px 0; font-size: 0.9em;">
+                            <strong>Correct answer:</strong> ${escapeHtml(getStatusLabel(answer.correct))}
+                            ${!answer.isCorrect ? `<br><strong>Your answer:</strong> ${escapeHtml(getStatusLabel(answer.selected))}` : ''}
+                        </p>
+                    </div>
+                    <a href="${mdnSearchUrl}" target="_blank" rel="noopener noreferrer"
+                       style="display: inline-block; margin-top: 10px; color: #16a34a; text-decoration: none; font-size: 0.9em;">
+                        📚 Learn more on MDN →
+                    </a>
+                </div>
+            `;
+        } else if (question.type === 'comparison') {
+            const correctFeature = answer.correct === 'a' ? question.featureA : question.featureB;
+            const incorrectFeature = answer.correct === 'a' ? question.featureB : question.featureA;
+            const correctVersion = getChromeVersion(correctFeature);
+            const incorrectVersion = getChromeVersion(incorrectFeature);
+
+            const mdnSearchUrlA = `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(question.featureA.name)}`;
+            const mdnSearchUrlB = `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(question.featureB.name)}`;
+
+            summaryHTML += `
+                <div style="background: ${answer.isCorrect ? '#f0fff4' : '#fdf2f2'};
+                            border: 2px solid ${answer.isCorrect ? '#38a169' : '#e53e3e'};
+                            border-radius: 10px;
+                            padding: 15px;
+                            margin-bottom: 15px;">
+                    <div>
+                        <strong>${icon} Question ${index + 1}: Which feature is newer?</strong>
+                        <p style="margin: 8px 0; font-size: 0.9em;">
+                            <strong>${escapeHtml(question.featureA.name)}</strong> vs <strong>${escapeHtml(question.featureB.name)}</strong>
+                        </p>
+                        <p style="margin: 8px 0; font-size: 0.9em;">
+                            <strong>Correct answer:</strong> ${escapeHtml(correctFeature.name)} (Chrome ${correctVersion})
+                            ${!answer.isCorrect ? `<br><strong>Your answer:</strong> ${escapeHtml(incorrectFeature.name)} (Chrome ${incorrectVersion})` : ''}
+                        </p>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 0.9em;">
+                        📚 Learn more:
+                        <a href="${mdnSearchUrlA}" target="_blank" rel="noopener noreferrer" style="color: #16a34a; text-decoration: none; margin-left: 5px;">
+                            ${escapeHtml(question.featureA.name)} →
+                        </a>
+                        |
+                        <a href="${mdnSearchUrlB}" target="_blank" rel="noopener noreferrer" style="color: #16a34a; text-decoration: none; margin-left: 5px;">
+                            ${escapeHtml(question.featureB.name)} →
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+    });
+
+    summaryDiv.innerHTML = summaryHTML;
+}
+
+// Finish quiz early
+function finishQuizEarly() {
+    if (confirm('Are you sure you want to finish the quiz early? Your current score will be calculated based on answered questions.')) {
+        showMixedResults();
+    }
 }
 
 // Initialize the game
