@@ -1,7 +1,7 @@
 import multiprocessing
 
 # Server socket
-bind = "0.0.0.0:8200"
+bind = "0.0.0.0:443"
 backlog = 2048
 
 # Worker processes
@@ -33,5 +33,5 @@ pidfile = None
 tmp_upload_dir = None
 
 # SSL
-keyfile = None
-certfile = None
+keyfile = "/etc/letsencrypt/live/baseline.sveder.com/privkey.pem"
+certfile = "/etc/letsencrypt/live/baseline.sveder.com/fullchain.pem"

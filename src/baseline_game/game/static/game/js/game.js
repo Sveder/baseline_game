@@ -386,7 +386,7 @@ function loadBaselineQuestion(question) {
 }
 
 function loadComparisonQuestion(question) {
-    document.getElementById('mixed-question-title').textContent = 'Which web feature was released more recently?';
+    document.getElementById('mixed-question-title').innerHTML = 'Which web feature was released <span style="color: #dc2626; font-weight: bold;">more recently</span>?';
     document.getElementById('comparison-question-content').style.display = 'block';
 
     // Use textContent to safely set feature names and descriptions (already safe)
