@@ -3,7 +3,9 @@
     "allow": [
       "Bash(mkdir:*)",
       "Bash(django-admin startproject:*)",
-      "Bash(python manage.py startapp:*)"
+      "Bash(python manage.py startapp:*)",
+      "Bash(source:*)",
+      "Bash(python manage.py collectstatic:*)"
     ],
     "deny": [],
     "ask": []
