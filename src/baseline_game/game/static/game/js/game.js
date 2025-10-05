@@ -535,10 +535,10 @@ function showMixedResults() {
 
     // Generate answers summary
     const summaryDiv = document.getElementById('answers-summary');
-    let summaryHTML = '<h3 style="color: #16a34a; margin-bottom: 20px;">Your Answers:</h3>';
-    summaryHTML += '<div style="margin-bottom: 20px; padding: 15px; background: #f0f8ff; border-radius: 10px; border-left: 4px solid #16a34a;">';
+    let summaryHTML = '<div style="margin-bottom: 20px; padding: 15px; background: #f0f8ff; border-radius: 10px; border-left: 4px solid #16a34a;">';
     summaryHTML += '<p style="margin: 0;">Learn more about Baseline at <a href="https://web.dev/baseline" target="_blank" rel="noopener noreferrer" style="color: #16a34a; font-weight: bold;">web.dev/baseline →</a></p>';
     summaryHTML += '</div>';
+    summaryHTML += '<h3 style="color: #16a34a; margin-bottom: 20px;">Your Answers:</h3>';
 
     answers.forEach((answer, index) => {
         const icon = answer.isCorrect ? '✅' : '❌';
