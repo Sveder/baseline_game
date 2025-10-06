@@ -42,7 +42,7 @@
     "status": "high",
     "statusLabel": "Baseline 2024+ (High)",
     "group": "forms",
-    "supportInfo": "chrome: 1, chrome_android: 18, edge: 12, firefox: 1, firefox_android: 4, safari: ≤4, safari_ios: ≤3.2"
+    "supportInfo": "chrome: 1, chrome_android: 18, edge: 12, firefox: 1, firefox_android: 4, safari: \u22644, safari_ios: \u22643.2"
   },
   {
     "id": "motion-path",
@@ -114,7 +114,7 @@
     "status": "high",
     "statusLabel": "Baseline 2024+ (High)",
     "group": "svg",
-    "supportInfo": "chrome: ≤80, chrome_android: ≤80, edge: ≤80, firefox: 1.5, firefox_android: 4, safari: ≤13.1, safari_ios: ≤13.4"
+    "supportInfo": "chrome: \u226480, chrome_android: \u226480, edge: \u226480, firefox: 1.5, firefox_android: 4, safari: \u226413.1, safari_ios: \u226413.4"
   },
   {
     "id": "color",
@@ -303,7 +303,7 @@
     "status": "high",
     "statusLabel": "Baseline 2024+ (High)",
     "group": "html-elements",
-    "supportInfo": "chrome: 1, chrome_android: 18, edge: 12, firefox: 1, firefox_android: 4, safari: ≤4, safari_ios: ≤3.2"
+    "supportInfo": "chrome: 1, chrome_android: 18, edge: 12, firefox: 1, firefox_android: 4, safari: \u22644, safari_ios: \u22643.2"
   },
   {
     "id": "text-orientation",
@@ -452,7 +452,7 @@
   {
     "id": "text-overflow",
     "name": "Text overflow",
-    "description": "The text-overflow CSS property sets how hidden overflow content appears to users. The property can clip content, truncate content with an ellipsis (…), or truncate with a custom string.",
+    "description": "The text-overflow CSS property sets how hidden overflow content appears to users. The property can clip content, truncate content with an ellipsis (\u2026), or truncate with a custom string.",
     "status": "high",
     "statusLabel": "Baseline 2024+ (High)",
     "group": "css",
@@ -537,7 +537,7 @@
     "status": "high",
     "statusLabel": "Baseline 2024+ (High)",
     "group": "html-elements",
-    "supportInfo": "chrome: ≤15, chrome_android: 18, edge: 12, firefox: 10, firefox_android: 10, safari: ≤4, safari_ios: ≤3.2"
+    "supportInfo": "chrome: \u226415, chrome_android: 18, edge: 12, firefox: 10, firefox_android: 10, safari: \u22644, safari_ios: \u22643.2"
   },
   {
     "id": "headings",
@@ -695,7 +695,7 @@
   {
     "id": "typed-array-iterators",
     "name": "Typed array iterators",
-    "description": "Typed arrays are iterable with the for … of statement and enumerable with the methods entries(), keys(), and values().",
+    "description": "Typed arrays are iterable with the for \u2026 of statement and enumerable with the methods entries(), keys(), and values().",
     "status": "high",
     "statusLabel": "Baseline 2024+ (High)",
     "group": "iterators",
@@ -708,7 +708,7 @@
     "status": "high",
     "statusLabel": "Baseline 2024+ (High)",
     "group": "forms",
-    "supportInfo": "chrome: 1, chrome_android: 18, edge: 12, firefox: 1, firefox_android: 4, safari: ≤4, safari_ios: ≤3"
+    "supportInfo": "chrome: 1, chrome_android: 18, edge: 12, firefox: 1, firefox_android: 4, safari: \u22644, safari_ios: \u22643"
   },
   {
     "id": "contain-style",
@@ -1100,7 +1100,7 @@
   {
     "id": "url-canparse",
     "name": "URL.canParse()",
-    "description": "The URL.canParse() static method checks whether a URL can be parsed into a valid URL object. It's an alternative to calling new URL() in a try … catch statement.",
+    "description": "The URL.canParse() static method checks whether a URL can be parsed into a valid URL object. It's an alternative to calling new URL() in a try \u2026 catch statement.",
     "status": "low",
     "statusLabel": "Baseline 2024 (Low)",
     "group": "other",
@@ -1368,15 +1368,6 @@
     "supportInfo": "chrome: 8, chrome_android: 18, edge: 12, firefox: 2, firefox_android: 4"
   },
   {
-    "id": "early-data",
-    "name": "Early data",
-    "description": "TLS 1.3 sessions may be resumed more quickly by sending so-called early data to servers before the TLS handshake has finished. Also known as zero round-trip time resumption or 0-RTT.",
-    "status": "unknown",
-    "statusLabel": "Unknown/Limited Support",
-    "group": "other",
-    "supportInfo": "firefox: 58, firefox_android: 58"
-  },
-  {
     "id": "screen-orientation-lock",
     "name": "Screen orientation lock",
     "description": "The screen.orientation.lock() method prevents changes to the screen orientation, typically in fullscreen applications such as games. For example, while locked, rotating a phone to the side won't change the screen orientation from landscape to portrait.",
@@ -1440,15 +1431,6 @@
     "supportInfo": "chrome: 111, chrome_android: 111, edge: 111, safari: 17.2, safari_ios: 17.2"
   },
   {
-    "id": "local-network-access",
-    "name": "Local network access",
-    "description": "The \"local-network-access\" user permission (and certain actions that imply this permission, such as a fetch() request with { targetAddressSpace: \"local\" }) allows a site to send requests to servers on a user's local network.",
-    "status": "unknown",
-    "statusLabel": "Unknown/Limited Support",
-    "group": "other",
-    "supportInfo": ""
-  },
-  {
     "id": "reporting",
     "name": "Reporting API",
     "description": "The Reporting-Endpoints HTTP header and ReportingObserver() API send reports of Content Security Policy (CSP) violations, Permissions-Policy violations, deprecated feature usage, browser interventions, and crashes to a nominated URL or callback function.",
@@ -1465,15 +1447,6 @@
     "statusLabel": "Unknown/Limited Support",
     "group": "other",
     "supportInfo": "chrome: 1, chrome_android: 18, edge: 12, firefox: 18, firefox_android: 18"
-  },
-  {
-    "id": "fast-seek",
-    "name": "fastSeek()",
-    "description": "The fastSeek() method seeks an <audio> or <video> element as fast as possible, by seeking to a keyframe instead of exactly the requested time.",
-    "status": "unknown",
-    "statusLabel": "Unknown/Limited Support",
-    "group": "media-elements",
-    "supportInfo": "firefox: 31, firefox_android: 31, safari: 8, safari_ios: 8"
   },
   {
     "id": "interactivity",
@@ -1568,7 +1541,7 @@
   {
     "id": "css-modules",
     "name": "CSS import attributes",
-    "description": "Module import … with { type: \"css\" } statements load CSS modules as constructable stylesheets. Also known as CSS module scripts.",
+    "description": "Module import \u2026 with { type: \"css\" } statements load CSS modules as constructable stylesheets. Also known as CSS module scripts.",
     "status": "unknown",
     "statusLabel": "Unknown/Limited Support",
     "group": "other",
@@ -1584,15 +1557,6 @@
     "supportInfo": "chrome: 114, chrome_android: 114, edge: 114"
   },
   {
-    "id": "webdriver",
-    "name": "WebDriver",
-    "description": "The WebDriver protocol allows out-of-process programs to inspect and control browsers to, for example, run tests of web applications. Also known as WebDriver classic.",
-    "status": "unknown",
-    "statusLabel": "Unknown/Limited Support",
-    "group": "webdriver",
-    "supportInfo": "firefox: 66"
-  },
-  {
     "id": "notifications",
     "name": "Notifications",
     "description": "The Notification() constructor shows a message to the user, typically using the notification system of the host operating system.",
@@ -1602,15 +1566,6 @@
     "supportInfo": "chrome: 20, edge: 14, firefox: 22, firefox_android: 22, safari: 7"
   },
   {
-    "id": "mediacontroller",
-    "name": "MediaController",
-    "description": "The playback of multiple <video> or <audio> elements can be coordinated by a MediaController instance, for example to synchronize a sign-language interpreter track with the main video track.",
-    "status": "unknown",
-    "statusLabel": "Unknown/Limited Support",
-    "group": "other",
-    "supportInfo": "safari: 7, safari_ios: 7"
-  },
-  {
     "id": "ext-texture-compression-rgtc",
     "name": "EXT_texture_compression_rgtc WebGL extension",
     "description": "The EXT_texture_compression_rgtc extension for WebGL 1.0 and 2.0 contexts adds RGTC compressed texture formats. RGTC is a block-based texture compression format suited for unsigned and signed red and red-green textures. Also known as Red-Green Texture Compression.",
@@ -1618,15 +1573,6 @@
     "statusLabel": "Unknown/Limited Support",
     "group": "webgl-extensions",
     "supportInfo": "chrome: 93, chrome_android: 83, edge: 93, safari: 14.1"
-  },
-  {
-    "id": "css-object-model-discouraged",
-    "name": "CSS object model (DOM level 2)",
-    "description": "The DOM level 2 style specification defined interfaces to access and modify CSS styles, such as CSSValue and CSSPrimitiveValue, that were later excluded from the CSS object model.",
-    "status": "unknown",
-    "statusLabel": "Unknown/Limited Support",
-    "group": "cssom",
-    "supportInfo": "safari: 10, safari_ios: 10"
   },
   {
     "id": "show-picker-select",
@@ -1719,15 +1665,6 @@
     "supportInfo": "chrome: 1, chrome_android: 18, edge: 12"
   },
   {
-    "id": "masonry",
-    "name": "Masonry",
-    "description": "Masonry is a type of CSS grid layout where the items on one of the axes are tightly packed together, like brickwork, instead of leaving gaps to align across the other axis.",
-    "status": "unknown",
-    "statusLabel": "Unknown/Limited Support",
-    "group": "layout",
-    "supportInfo": ""
-  },
-  {
     "id": "digital-goods",
     "name": "Digital goods",
     "description": "The window.getDigitalGoodsService API connects to stores or billing services for in-app products and subscriptions.",
@@ -1762,41 +1699,5 @@
     "statusLabel": "Unknown/Limited Support",
     "group": "other",
     "supportInfo": "chrome_android: 100"
-  },
-  {
-    "id": "ambient-light",
-    "name": "Ambient light sensor",
-    "description": "The AmbientLightSensor API returns the current light level in lux of the ambient light level around the device.",
-    "status": "unknown",
-    "statusLabel": "Unknown/Limited Support",
-    "group": "sensors",
-    "supportInfo": ""
-  },
-  {
-    "id": "glyph-orientation-vertical",
-    "name": "glyph-orientation-vertical",
-    "description": "The glyph-orientation-vertical CSS property sets the orientation of glyphs in text rendered in a vertical writing mode.",
-    "status": "unknown",
-    "statusLabel": "Unknown/Limited Support",
-    "group": "css",
-    "supportInfo": "safari: 4, safari_ios: 3.2"
-  },
-  {
-    "id": "portal",
-    "name": "Portals",
-    "description": "The <portal> HTML element embeds another page into the current page as a non-interactive preview.",
-    "status": "unknown",
-    "statusLabel": "Unknown/Limited Support",
-    "group": "other",
-    "supportInfo": ""
-  },
-  {
-    "id": "margin-trim",
-    "name": "margin-trim",
-    "description": "The margin-trim CSS property removes the margins of child elements when they meet the edges of the container.",
-    "status": "unknown",
-    "statusLabel": "Unknown/Limited Support",
-    "group": "css",
-    "supportInfo": "safari: 16.4, safari_ios: 16.4"
   }
 ]

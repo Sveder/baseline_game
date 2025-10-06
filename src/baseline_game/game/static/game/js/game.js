@@ -350,7 +350,7 @@ function generateMixedQuestions() {
 function loadMixedQuestion() {
     const question = gameQuestions[currentQuestionIndex];
 
-    const progress = (currentQuestionIndex / gameQuestions.length) * 100;
+    const progress = ((currentQuestionIndex + 1) / gameQuestions.length) * 100;
     const progressBar = document.getElementById('mixed-progress-bar');
     progressBar.style.width = `${progress}%`;
     progressBar.textContent = `${currentQuestionIndex + 1}/${gameQuestions.length}`;
