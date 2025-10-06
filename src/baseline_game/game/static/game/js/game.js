@@ -531,7 +531,7 @@ function showMixedResults() {
     const accuracy = Math.round((score / gameQuestions.length) * 100);
 
     document.getElementById('final-score').textContent = `${score}/${gameQuestions.length}`;
-    document.getElementById('accuracy').textContent = `${accuracy}%`;
+    document.getElementById('accuracy').textContent = `${accuracy}% Accuracy`;
 
     // Generate answers summary
     const summaryDiv = document.getElementById('answers-summary');
