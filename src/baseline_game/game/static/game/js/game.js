@@ -34,13 +34,16 @@ function selectGameMode(mode) {
 
 // Helper function to extract Chrome version number from supportInfo
 function getChromeVersion(feature) {
-    if (!feature.supportInfo) return 999;
+    if (!feature.supportInfo) return null;
 
     const chromeMatch = feature.supportInfo.match(/chrome:\s*(\d+)/);
     if (chromeMatch) {
-        return parseInt(chromeMatch[1]);
+        const version = parseInt(chromeMatch[1]);
+        // Filter out invalid version numbers
+        if (version >= 900) return null;
+        return version;
     }
-    return 999;
+    return null;
 }
 
 // Helper function to safely escape HTML
@@ -188,8 +191,8 @@ function showFeedback(question, isCorrect, selectedAnswer, correctAnswer) {
 // Get human-readable status label
 function getStatusLabel(status) {
     switch (status) {
-        case 'high': return 'Baseline 2024+ (High)';
-        case 'low': return 'Baseline 2024 (Low)';
+        case 'high': return 'Baseline Widely Available';
+        case 'low': return 'Baseline Newly Available';
         case 'unknown': return 'Unknown/Limited Support';
         default: return 'Unknown';
     }
@@ -299,7 +302,7 @@ function generateMixedQuestions() {
         const versionA = getChromeVersion(featureA);
         const versionB = getChromeVersion(featureB);
 
-        if (versionA !== versionB) {
+        if (versionA !== null && versionB !== null && versionA !== versionB) {
             comparisonPool.push({
                 type: 'comparison',
                 featureA: featureA,
@@ -347,8 +350,10 @@ function generateMixedQuestions() {
 function loadMixedQuestion() {
     const question = gameQuestions[currentQuestionIndex];
 
-    const progress = (currentQuestionIndex / gameQuestions.length) * 100;
-    document.getElementById('mixed-progress-bar').style.width = `${progress}%`;
+    const progress = ((currentQuestionIndex + 1) / gameQuestions.length) * 100;
+    const progressBar = document.getElementById('mixed-progress-bar');
+    progressBar.style.width = `${progress}%`;
+    progressBar.textContent = `${currentQuestionIndex + 1}/${gameQuestions.length}`;
 
     document.getElementById('mixed-current-score').textContent = score;
     document.getElementById('mixed-total-questions').textContent = gameQuestions.length;
@@ -526,11 +531,14 @@ function showMixedResults() {
     const accuracy = Math.round((score / gameQuestions.length) * 100);
 
     document.getElementById('final-score').textContent = `${score}/${gameQuestions.length}`;
-    document.getElementById('accuracy').textContent = `${accuracy}%`;
+    document.getElementById('accuracy').textContent = `${accuracy}% Accuracy`;
 
     // Generate answers summary
     const summaryDiv = document.getElementById('answers-summary');
-    let summaryHTML = '<h3 style="color: #16a34a; margin-bottom: 20px;">Your Answers:</h3>';
+    let summaryHTML = '<div style="margin-bottom: 20px; padding: 15px; background: #f0f8ff; border-radius: 10px; border-left: 4px solid #16a34a;">';
+    summaryHTML += '<p style="margin: 0;">Learn more about Baseline at <a href="https://web.dev/baseline" target="_blank" rel="noopener noreferrer" style="color: #16a34a; font-weight: bold;">web.dev/baseline →</a></p>';
+    summaryHTML += '</div>';
+    summaryHTML += '<h3 style="color: #16a34a; margin-bottom: 20px;">Your Answers:</h3>';
 
     answers.forEach((answer, index) => {
         const icon = answer.isCorrect ? '✅' : '❌';
